@@ -78,7 +78,9 @@ const Navbar = () => {
 
             <div className='bg-gray-200 flex items-center justify-evenly p-3'>
                 <div className='text-red-600 font-bold text-xl '>
-                    Reader
+                    <Link href="/">
+                        CulinaShare
+                    </Link>
                 </div>
                 <div className='flex space-x-3'>
                     <Twitter />
@@ -89,44 +91,54 @@ const Navbar = () => {
 
                 {
                     data?.user.name ? (
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <Avatar className=" cursor-pointer">
-                                    <AvatarImage src={""} alt="@shadcn" />
-                                    <AvatarFallback className="text-primary hover:bg-primary hover:text-white  transition-all">
-                                        <UserCog className="h-5" />
-                                    </AvatarFallback>
-                                </Avatar>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent className="mr-6 bg-white">
-                                <DropdownMenuLabel>
-                                    <div className="pr-20 pl-4">
-                                        <h1 className="font-semibold text-md ">Signed in as</h1>
-                                        <h1 className="font-semibold text-md">{data?.user.email}</h1>
+                        <div className='flex items-center space-x-4'>
+
+
+                            <DropdownMenu>
+                                <DropdownMenuTrigger asChild>
+                                    <Avatar className=" cursor-pointer">
+                                        <AvatarImage src={""} alt="@shadcn" />
+                                        <AvatarFallback className="text-primary hover:bg-primary hover:text-white  transition-all">
+                                            <UserCog className="h-5" />
+                                        </AvatarFallback>
+                                    </Avatar>
+                                </DropdownMenuTrigger>
+                                <DropdownMenuContent className="mr-6 bg-white">
+                                    <DropdownMenuLabel>
+                                        <div className="pr-20 pl-4">
+                                            <h1 className="font-semibold text-md ">Signed in as</h1>
+                                            <h1 className="font-semibold text-md">{data?.user.email}</h1>
+                                        </div>
+                                    </DropdownMenuLabel>
+                                    <DropdownMenuSeparator />
+                                    <div
+                                        onClick={() => {
+                                            signOut()
+                                        }}
+                                    >
+                                        <DropdownMenuItem className="hover:!bg-red-500 cursor-pointer hover:!text-white">
+                                            <LogOut className="mr-2 h-4 w-4" />
+                                            <span>Log out</span>
+                                        </DropdownMenuItem>
                                     </div>
-                                </DropdownMenuLabel>
-                                <DropdownMenuSeparator />
-                                <div
-                                    onClick={() => {
-                                        signOut()
-                                    }}
-                                >
-                                    <DropdownMenuItem className="hover:!bg-red-500 cursor-pointer hover:!text-white">
-                                        <LogOut className="mr-2 h-4 w-4" />
-                                        <span>Log out</span>
-                                    </DropdownMenuItem>
-                                </div>
-                            </DropdownMenuContent>
-                        </DropdownMenu>
+                                </DropdownMenuContent>
+                            </DropdownMenu>
+
+                            <p>
+                                <Link href="/About">
+                                    About
+                                </Link>
+                            </p>
+                        </div>
                     ) : (
-                        <div>
+                        <div className='flex items-center space-x-4'>
                             <Dialog>
                                 <DialogTrigger asChild>
                                     <Button variant="outline">Log In</Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
-                                        <DialogTitle>Edit profile</DialogTitle>
+                                        <DialogTitle>Create Username</DialogTitle>
                                         <DialogDescription>
                                             Make changes to your profile here. Click save when youre done.
                                         </DialogDescription>
@@ -157,11 +169,23 @@ const Navbar = () => {
                                     <DialogFooter>
                                         <Button onClick={handleLoginData}>Log In</Button>
                                     </DialogFooter>
+
+                                    <DialogFooter className='text-red-600'>
+                                        Demo Email :- abc@gmail.com <br />
+                                        Demo Password :- 123456
+                                    </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+                            <p>
+                                <Link href="/About">
+                                    About
+                                </Link>
+                            </p>
                         </div>
                     )
                 }
+
+
             </div>
         </div>
     )

@@ -18,7 +18,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Bird, DollarSign } from "lucide-react"
+import { Bird, BookMarked, DollarSign } from "lucide-react"
+import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -59,8 +60,16 @@ interface ExamplePageProps {
 
 const FilterProduct = () => {
     const [searchBook, setSearchBook] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
+    const [categories, setCategories] = useState<string[]>([]);
     const handleSearch = (input: string) => {
         setSearchBook(input);
+    };
+
+    const { data } = useSession()
+
+    const handleCategoryChange = (category: string) => {
+        setSelectedCategory(category);
     };
     console.log(searchBook);
 
@@ -81,23 +90,40 @@ const FilterProduct = () => {
 
 
 
-    // Update the document title using the browser API
-    const filterProductsByName = (input: string): ExampleData[] => {
+    const filterProductsByNameAndCategory = (input: string, category: string): ExampleData[] => {
         const lowerCaseInput = input.toLowerCase().trim();
+        const lowerCaseCategory = category.toLowerCase().trim();
         return passedData?.filter((product) =>
-            product.name.toLowerCase().includes(lowerCaseInput) ||
-            product.category.toLowerCase().includes(lowerCaseInput)
+            (product.name.toLowerCase().includes(lowerCaseInput) ||
+                product.category.toLowerCase().includes(lowerCaseInput)) &&
+            product.category.toLowerCase().includes(lowerCaseCategory)
         ) || [];
     };
 
-    const filteredProducts = filterProductsByName(searchBook);
+    const filteredProducts = filterProductsByNameAndCategory(searchBook, selectedCategory);
 
 
 
     return (
         <div>
+
             <div className=" flex justify-center item-center mt-6 mb-6">
                 <Input onChange={(e) => handleSearch(e.target.value)} value={searchBook} type="email" className=" w-60 rounded-xl border-grey-700  " placeholder="Search..." />
+                {
+                    data?.user.email ? (
+                        <div className="ml-4 flex items-center">
+                            <p>Saved</p>
+                            <div className="text-black flex  text-xl p-1 ">
+                                <Link href={`/Cart`} className='flex'>
+                                    <BookMarked />
+                                </Link>
+                            </div>
+                        </div>
+                    ) : (
+                        ""
+                    )
+                }
+
             </div>
 
             <div className="flex flex-wrap gap-6">
@@ -117,7 +143,7 @@ const FilterProduct = () => {
                                         <Card className="w-[350px]">
                                             <CardHeader>
                                                 <CardTitle>{el.name}</CardTitle>
-                                                <CardDescription>{el.description}</CardDescription>
+                                                {/* <CardDescription>{el.description}</CardDescription> */}
                                             </CardHeader>
                                             <CardContent>
                                                 <Image src={`${el.image}`} alt="Loading..." height={200} width={300} />

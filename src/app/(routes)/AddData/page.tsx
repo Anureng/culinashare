@@ -7,6 +7,9 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
+import { redirect } from 'next/navigation';
+import Navbar from '@/app/components/Navbar';
+import Footer from '@/app/components/Footer';
 const CreateProduct = () => {
 
     const [imageUrl, setImageUrl] = useState<string>("")
@@ -41,6 +44,8 @@ const CreateProduct = () => {
                 },
             });
             console.log(res.json());
+            window.location.reload()
+            redirect("/")
         } catch (error) {
             console.log(error);
         }
@@ -54,74 +59,72 @@ const CreateProduct = () => {
 
 
     return (
-        <div className='flex lg:items-center lg:justify-center'>
-            {/* <Input type="text" placeholder='enter name' value={name} onChange={(e) => setName(e.target.value)} />
+        <>
+            <Navbar />
+            <div className='flex lg:items-center lg:justify-center mt-5 mb-5'>
+                {/* <Input type="text" placeholder='enter name' value={name} onChange={(e) => setName(e.target.value)} />
             <Input type="text" placeholder='enter category' value={category} onChange={(e) => setCategory(e.target.value)} />
             <CldUploadButton uploadPreset="qlvvng0p" onUpload={handleUploadImage} >
-                Click to upload
+            Click to upload
             </CldUploadButton>
             <Input type="number" placeholder='enter price' value={price} onChange={handlePriceChange} />
             <Input type="text" placeholder='description' value={description} onChange={(e) => setDescription(e.target.value)} />
             <Input type="text" placeholder='type' value={type} onChange={(e) => setType(e.target.value)} />
             <Button onClick={handleAddData}>click to add data</Button> */}
 
-            <Card className="p-4 border  lg:w-2/5">
-                <CardHeader>
-                    <CardTitle>Product Information</CardTitle>
-                    <CardDescription>Enter the details of your product below</CardDescription>
-                </CardHeader>
-                <CardContent className="grid gap-4">
-                    <div className="grid gap-2">
-                        <Label className="text-sm" htmlFor="name">
-                            Name
-                        </Label>
-                        <Input type="text" placeholder='Enter name' value={name} onChange={(e) => setName(e.target.value)} />
-                    </div>
-                    <div className="grid gap-2">
+                <Card className="p-4 border  lg:w-2/5">
+                    <CardHeader>
+                        <CardTitle>Product Information</CardTitle>
+                        <CardDescription>Enter the details of your product below</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                        <div className="grid gap-2">
+                            <Label className="text-sm" htmlFor="name">
+                                Name
+                            </Label>
+                            <Input type="text" placeholder='Enter name' value={name} onChange={(e) => setName(e.target.value)} />
+                        </div>
+                        <div className="grid gap-2">
 
+                            <div className="grid gap-2">
+                                <Label className="text-sm" htmlFor="price">
+                                    Category
+                                </Label>
+                                <Input type="text" placeholder='Enter category' value={category} onChange={(e) => setCategory(e.target.value)} />
+                            </div>
+                        </div>
                         <div className="grid gap-2">
                             <Label className="text-sm" htmlFor="price">
-                                Category
+                                Price
                             </Label>
-                            <Input type="text" placeholder='Enter category' value={category} onChange={(e) => setCategory(e.target.value)} />
+                            <Input type="number" placeholder='enter price' value={price} onChange={handlePriceChange} />
                         </div>
-                    </div>
-                    <div className="grid gap-2">
-                        <Label className="text-sm" htmlFor="price">
-                            Price
-                        </Label>
-                        <Input type="number" placeholder='enter price' value={price} onChange={handlePriceChange} />
-                    </div>
-                    <div className="grid gap-2">
-                        <Label className="text-sm" htmlFor="images">
-                            Images
-                        </Label>
-                        <CldUploadButton uploadPreset="qlvvng0p" onUpload={handleUploadImage} >
-                            <Input accept="image/*" className="h-10" id="images" multiple type="file" />
-                        </CldUploadButton>
-                    </div>
-                    <div className="grid gap-2">
-                        <Label className="text-sm" htmlFor="tags">
-                            Video
-                        </Label>
-                        <Input type="text" placeholder='Enter URL' value={type} onChange={(e) => setType(e.target.value)} />
-                    </div>
-                    <div className="grid gap-2">
-                        <Label className="text-sm" htmlFor="notes">
-                            Description
-                        </Label>
-                        <Textarea placeholder='Description' value={description} onChange={(e) => setDescription(e.target.value)} />
-                    </div>
-                </CardContent>
-                <CardFooter>
-                    <Button className="ml-auto" onClick={handleAddData}>Add Data</Button>
-                </CardFooter>
-            </Card>
+                        <div className="grid gap-2">
+                            <Label className="text-sm" htmlFor="images">
+                                Images
+                            </Label>
+                            <CldUploadButton uploadPreset="qlvvng0p" onUpload={handleUploadImage} >
+                                <Input accept="image/*" className="h-10" id="images" multiple type="file" />
+                            </CldUploadButton>
+                        </div>
+                        <div className="grid gap-2">
+                            <Label className="text-sm" htmlFor="notes">
+                                Description
+                            </Label>
+                            <Textarea placeholder='Description' value={description} onChange={(e) => setDescription(e.target.value)} />
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <Button className="ml-auto" onClick={handleAddData}>Add Data</Button>
+                    </CardFooter>
+                </Card>
 
-            {/* <div className="hidden lg:block">
+                {/* <div className="hidden lg:block">
                 <img className=" h-screen" src='https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Zm9vZHxlbnwwfHwwfHx8MA%3D%3D' alt='Loading...' />
             </div> */}
-        </div>
+            </div>
+            <Footer />
+        </>
     )
 }
 

@@ -4,13 +4,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
     try {
-        const { name, category, image, price, description, video } = await request.json();
+        const { name, category, image, price, description } = await request.json();
 
         // Check if the provided productId exists before creating the review
 
         const newReview = await client.product.create({
             data: {
-                name, category, image, price, description, video
+                name, category, image, price, description
             }
         });
 
