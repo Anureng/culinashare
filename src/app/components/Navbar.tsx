@@ -98,12 +98,12 @@ const Navbar = () => {
         <div>
 
             <div className='bg-gray-200 flex items-center justify-evenly p-3'>
-                <div className='text-red-600 font-bold text-xl '>
+                <div className='text-red-600 font-bold text-xs sm:text-xl '>
                     <Link href="/">
                         CulinaShare
                     </Link>
                 </div>
-                <div className='flex space-x-3'>
+                <div className='  flex lg:space-x-3 text-xs'>
                     <Twitter />
                     <Instagram />
                     <Linkedin />
@@ -155,7 +155,7 @@ const Navbar = () => {
                         <div className='flex items-center space-x-4'>
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button variant="outline">Log In</Button>
+                                    <Button variant="outline" className='text-xs p-1 lg:text-lg sm:p-4 '>Log In</Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
@@ -200,7 +200,7 @@ const Navbar = () => {
 
                             <Dialog>
                                 <DialogTrigger asChild>
-                                    <Button variant="outline">Sign In</Button>
+                                    <Button variant="outline" className='text-xs p-1 lg:text-lg sm:p-4 '>Sign In</Button>
                                 </DialogTrigger>
                                 <DialogContent className="sm:max-w-[425px]">
                                     <DialogHeader>
