@@ -72,6 +72,27 @@ const Navbar = () => {
 
 
 
+    const handleClickaddData = async () => {
+        const res = await fetch("/api/register", {
+            method: "POST",
+            body: JSON.stringify({
+                email: emailData,
+                name: nameData,
+                password: passwordData,
+                role: roleData
+            }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (res.status === 500) {
+            console.log(res.statusText);
+        }
+        if (res.status === 200) {
+            console.log("Registering succesfully login with your credentianls");
+            window.location.reload()
+        }
+    }
     const router = useRouter()
     return (
         <div>
@@ -176,6 +197,50 @@ const Navbar = () => {
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
+
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button variant="outline">Sign In</Button>
+                                </DialogTrigger>
+                                <DialogContent className="sm:max-w-[425px]">
+                                    <DialogHeader>
+                                        <DialogTitle>Create Username</DialogTitle>
+                                        <DialogDescription>
+                                            Make changes to your profile here. Click save when youre done.
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <div className="grid gap-4 py-4">
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="name" className="text-right">
+                                                Name
+                                            </Label>
+                                            <Input type="text" placeholder="name" className="col-span-3" value={nameData} onChange={(e) => setNameData(e.target.value)} />
+                                        </div>
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="username" className="text-right">
+                                                Email
+                                            </Label>
+                                            {/* <Input id="username" value="@peduarte" /> */}
+                                            <Input type="email" className="col-span-3" placeholder="email" value={emailData} onChange={(e) => setEmailData(e.target.value)} />
+                                        </div>
+
+                                        <div className="grid grid-cols-4 items-center gap-4">
+                                            <Label htmlFor="username" className="text-right">
+                                                Password
+                                            </Label>
+                                            {/* <Input id="username" value="@peduarte" /> */}
+                                            <Input className="col-span-3" type="password" placeholder="password" value={passwordData} onChange={(e) => setPasswordData(e.target.value)} />
+                                        </div>
+                                    </div>
+                                    <DialogFooter>
+                                        <Button onClick={handleClickaddData}>Sign In</Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
+                            {/* <input type="text" placeholder="name" value={nameData} onChange={(e) => setNameData(e.target.value)} />
+                            <input type="email" placeholder="email" value={emailData} onChange={(e) => setEmailData(e.target.value)} />
+                            <input type="password" placeholder="password" value={passwordData} onChange={(e) => setPasswordData(e.target.value)} />
+                            <button onClick={handleClickaddData}>click to add data</button> */}
                             <p>
                                 <Link href="/About">
                                     About
