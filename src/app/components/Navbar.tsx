@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation'
 import { signIn, signOut, useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+// import { ToastAction } from "@/components/ui/toast"
+import { useToast } from "@/components/ui/use-toast"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -32,6 +34,8 @@ const Navbar = () => {
     const { data } = useSession()
     const [countData, setCountData] = useState(0)
 
+    const { toast } = useToast()
+
     const [nameData, setNameData] = useState("")
     const [emailData, setEmailData] = useState("")
     const [passwordData, setPasswordData] = useState("")
@@ -43,11 +47,18 @@ const Navbar = () => {
             password: passwordData,
         });
         if (res?.error) {
-            console.log(res.error);
+            toast({
+                title: "Error",
+                description: "Invalid Credentials",
+            })
         }
         if (res?.ok) {
             console.log(res.ok);
-            window.location.reload()
+            () => {
+                toast({
+                    description: "Your message has been sent.",
+                })
+            }
         }
     }
 
@@ -117,7 +128,7 @@ const Navbar = () => {
                                     <DialogHeader>
                                         <DialogTitle>Edit profile</DialogTitle>
                                         <DialogDescription>
-                                            Make changes to your profile here. Click save when you're done.
+                                            Make changes to your profile here. Click save when youre done.
                                         </DialogDescription>
                                     </DialogHeader>
                                     <div className="grid gap-4 py-4">
